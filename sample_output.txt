@@ -1,0 +1,42 @@
+===== Leave Management System =====
+
+--- Employee details (polymorphism) ---
+ID: 101 | Name: Meera | Dept: Engineering | Type: Full-Time | Balance: 24 day(s)
+ID: 102 | Name: Arjun | Dept: Design | Type: Part-Time | Balance: 12 day(s)
+ID: 103 | Name: Divya | Dept: Engineering | Type: Intern | Balance: 6 day(s)
+ID: 201 | Name: Suresh | Dept: Engineering | Type: Manager | Balance: 30 day(s)
+      Extra: can approve/reject leave requests, max 15 days per request
+
+--- Scenario 1: valid request approved ---
+Request #1 [Meera, 5 day(s), Family function, PENDING]
+Request #1 [Meera, 5 day(s), Family function, APPROVED]
+Meera's balance: 19
+
+--- Scenario 2: request rejected by manager ---
+Request #2 [Divya, 2 day(s), Exam preparation, REJECTED]
+Divya's balance: 6
+
+--- Scenario 3: approved leave cancelled (days restored) ---
+After approval, Arjun's balance: 8
+Request #3 [Arjun, 4 day(s), Not specified, CANCELLED]
+After cancellation, Arjun's balance: 12
+
+--- Scenario 4: invalid requests ---
+Divya (Intern, 3 days) -> Intern can request at most 2 day(s) at a time.
+Arjun (Part-Time, 6 days) -> Part-Time can request at most 5 day(s) at a time.
+Meera (Full-Time, 0 days) -> Leave days must be greater than zero.
+Meera (Full-Time, -2 days) -> Leave days must be greater than zero.
+
+--- Scenario 5: manager rules ---
+Error: A manager cannot approve or reject their own request.
+Accepted: Request #5 [Suresh, 15 day(s), Test, PENDING]
+
+--- Scenario 6: processing a request twice ---
+Error: Cannot approve request #6 because it is APPROVED.
+
+--- Final balances ---
+ID: 101 | Name: Meera | Dept: Engineering | Type: Full-Time | Balance: 17 day(s)
+ID: 102 | Name: Arjun | Dept: Design | Type: Part-Time | Balance: 12 day(s)
+ID: 103 | Name: Divya | Dept: Engineering | Type: Intern | Balance: 6 day(s)
+ID: 201 | Name: Suresh | Dept: Engineering | Type: Manager | Balance: 30 day(s)
+      Extra: can approve/reject leave requests, max 15 days per request
